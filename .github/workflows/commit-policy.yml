@@ -1,0 +1,36 @@
+name: commit-policy
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  no-ai-attribution:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check every commit in this push or pull request
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            range="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          elif [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            range="${{ github.event.before }}..${{ github.sha }}"
+          else
+            range="${{ github.sha }} -n 50"
+          fi
+          bad=$(git log --format='%H%n%B%n----' $range | grep -iE '^(Co-Authored-By|Co-authored-by):.*(claude|anthropic)|Generated with .*Claude' || true)
+          if [ -n "$bad" ]; then
+            echo "AI attribution lines found in commit messages:"; echo "$bad"; exit 1
+          fi
+          echo "no AI attribution lines"
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
