@@ -38,3 +38,7 @@ target-version = "py312"
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+# the demo scripts import their sibling module; name it so import sorting is the same on every machine
+known-first-party = ["humanapi_facilitator", "common"]
