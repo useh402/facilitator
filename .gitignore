@@ -1,0 +1,35 @@
+# secrets: only *.example files are tracked
+.env
+.env.*
+!.env.example
+!env.docker.example
+!env.facilitator.example
+*.pem
+*.key
+.launch-wallets.json
+.keys.json
+
+# data, databases, logs
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+data/
+
+# tooling and build output
+.claude/*
+!.claude/settings.json
+.DS_Store
+node_modules/
+.next/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+coverage/

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Rejects commit messages that carry AI co-author trailers or generator lines.
+if grep -qiE '^(Co-Authored-By|Co-authored-by):.*(claude|anthropic)|Generated with .*Claude' "$1"; then
+  echo "commit-msg: AI attribution lines are not allowed in this repository" >&2
+  exit 1
+fi
