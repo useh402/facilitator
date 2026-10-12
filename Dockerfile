@@ -1,5 +1,5 @@
 # HumanAPI x402 facilitator
-FROM python:3.12-slim
+FROM python:3.14-slim
 ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 UV_LINK_MODE=copy
 RUN pip install --no-cache-dir uv
 WORKDIR /app
