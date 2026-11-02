@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "HumanAPI x402 facilitator: USDG on Robinhood Chain (Permit2) and USDC on Solana (SVM exact)"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-  "x402[evm,svm,extensions]==2.25.0",
+  "x402[evm,svm,extensions]==2.26.0",
   "web3>=7,<8",
   "fastapi>=0.115",
   "uvicorn[standard]>=0.30",
